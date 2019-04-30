@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DayFive {
@@ -15,6 +16,7 @@ public class DayFive {
             BufferedReader reader = new BufferedReader(new FileReader("inputdayfive.txt"));
             String line = reader.readLine();
             System.out.println(dayFive.removePolymer(line));
+            System.out.println(dayFive.getShortestPolymer(line));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,5 +41,16 @@ public class DayFive {
 
         }
         return builder.length();
+    }
+
+    public int getShortestPolymer(String input) {
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i <alphabet.length ; i++) {
+            String ls = "(["+String.valueOf(alphabet[i])+String.valueOf(alphabet[i]).toUpperCase()+"]+)";
+            String shorterinput = input.replaceAll(ls, "");
+            list.add(removePolymer(shorterinput));
+        }
+        return Collections.min(list);
     }
 }
