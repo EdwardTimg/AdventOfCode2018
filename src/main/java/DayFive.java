@@ -38,7 +38,6 @@ public class DayFive {
                     i++;
             } else
                 i++;
-
         }
         return builder.length();
     }
