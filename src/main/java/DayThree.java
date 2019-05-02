@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class DayThree {
     private static final Pattern CLAIM = Pattern.compile("#(.*) @ ([0-9]+),([0-9]+): ([0-9]+)x([0-9]+)");
 
+
     public static void main(String[] args) {
         DayThree dayThree = new DayThree();
         try{
@@ -25,6 +26,9 @@ public class DayThree {
             }
             //Part one
             System.out.println(dayThree.numberOfOverlaps(list));
+
+            //Part two
+            System.out.println(dayThree.noOverlaps(list));
 
         }catch (IOException e){
             e.printStackTrace();
@@ -55,5 +59,48 @@ public class DayThree {
         }
 
         return occurence;
+    }
+
+    public int noOverlaps(List<String> list) {
+
+        Boolean overlap = false;
+        int [][] area = new int[1000][1000];
+        for (String line: list){
+            Matcher matcher = CLAIM.matcher(line);
+            matcher.find();
+            int x1 = Integer.parseInt(matcher.group(2));
+            int y1 = Integer.parseInt(matcher.group(3));
+            int x2 = Integer.parseInt(matcher.group(4));
+            int y2 = Integer.parseInt(matcher.group(5));
+            for (int x = x1; x < x1+x2; x++) {
+                for (int y = y1; y <y1 +y2 ; y++) {
+                    area[x][y] ++;
+                }
+            }
+        }
+        for (String line: list) {
+            int nooccurency = 0;
+            Matcher matcher = CLAIM.matcher(line);
+            matcher.find();
+            int id = Integer.parseInt(matcher.group(1));
+            int x1 = Integer.parseInt(matcher.group(2));
+            int y1 = Integer.parseInt(matcher.group(3));
+            int x2 = Integer.parseInt(matcher.group(4));
+            int y2 = Integer.parseInt(matcher.group(5));
+            int squarearea = x2 * y2;
+            for (int x = x1; x < x1 + x2; x++) {
+                for (int y = y1; y < y1 + y2; y++) {
+                    if (area[x][y]== 1) {
+                        nooccurency++;
+                        if (nooccurency == squarearea){
+                            return id;
+                        }
+                    }
+                }
+            }
+        }
+
+        return  0;
+
     }
 }
