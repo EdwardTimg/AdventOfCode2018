@@ -23,6 +23,7 @@ public class DayThree {
             while ((line = reader.readLine())!=null){
                 list.add(line);
             }
+            //Part one
             System.out.println(dayThree.numberOfOverlaps(list));
 
         }catch (IOException e){
