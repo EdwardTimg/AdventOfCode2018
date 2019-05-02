@@ -13,4 +13,11 @@ public class DayTwoTests {
         list.addAll(Arrays.asList("abcdef","bababc","abbcde","abcccd", "aabcdd","abcdee","ababab"));
         Assert.assertTrue(dayTwo.checkSumBoxes(list)==12);
     }
+
+    @Test
+    public void findSimulareString(){
+        List<String> list = new ArrayList<>();
+        list.addAll(Arrays.asList("abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"));
+        Assert.assertEquals("fgij", dayTwo.findSimulareString(list));
+    }
 }
